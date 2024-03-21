@@ -5,8 +5,10 @@
 package com.mycompany.snakegame;
 
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.Timer;
 
 /**
  *
@@ -21,8 +23,10 @@ public class Board extends javax.swing.JPanel {
     private int currentRow;
     private int currentCol;
     private Snake snake;
+    private KeyAdapter keyAdapter;
     private Food food;
     private SpecialFood specialFood;
+    private Timer time;
     
     
     
@@ -49,50 +53,45 @@ public class Board extends javax.swing.JPanel {
         
     }
     
-    /*class MyKeyAdapter extends KeyAdapter {
+    class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
-            if (!gamePaused){
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT:
-                        if (canMove(currentShape, currentRow, currentCol - 1)) {
-                            currentCol--;
-                    }
+                        snake.setDirection(Direction.LEFT);
                         break;
                     case KeyEvent.VK_RIGHT:
-                        if (canMove(currentShape, currentRow, currentCol + 1)) {
-                            currentCol++;
-                    }
+                        snake.setDirection(Direction.RIGHT);
                         break;
                     case KeyEvent.VK_UP:
-                        if (canMove(snake, currentRow - 1, currentCol)) {
-                            currentRow--;
-                    }
-        
+                        snake.setDirection(Direction.UP);
                         break;
                     case KeyEvent.VK_DOWN:
-                        if (canMove(currentShape, currentRow + 1, currentCol)) {
-                            currentRow++;
-                        }
-                        //dropShape();
-                        break;
-                    case KeyEvent.VK_P:
-                        if (!gamePaused) {
-                            pauseGame();
-                        } else {
-                            resumeGame();
-                        }
+                        snake.setDirection(Direction.DOWN);
                         break;
                     default:
                         break;
                 }
                 repaint();
-            } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                resumeGame();
-                repaint();
-            }
+                
+            
         }
-    } */  
+    }
+    
+    /*public boolean canMove(Node node, int row, int col) {
+        
+    }*/
+    
+    
+    public void checkCollision(){
+        Node snakeHead = snake.getBody().get(0);
+        if (snakeHead.getRow() < 0 || snakeHead.getRow() >= NUM_ROWS ||
+                snakeHead.getCol() < 0 || snakeHead.getCol() >= NUM_COLS){
+            snake.stopMoving();
+        }
+    }
+    
+    
 
     /**
      * Creates new form Board
@@ -101,7 +100,16 @@ public class Board extends javax.swing.JPanel {
         snake = new Snake();
         food = new Food((int)(Math.random() * NUM_ROWS), (int)(Math.random() * NUM_COLS));
         specialFood = new SpecialFood((int)(Math.random() * NUM_ROWS), (int)(Math.random() * NUM_COLS));
-        
+        keyAdapter = new MyKeyAdapter();
+        setFocusable(true);
+        addKeyListener(keyAdapter);
+        time = new Timer(400, e -> {
+           snake.move();
+           repaint();
+        });
+        time.start();
+        initGame();
+        repaint();
        
     }
     
@@ -118,7 +126,7 @@ public class Board extends javax.swing.JPanel {
     
     @Override
     public void paintComponent(Graphics g){
-        //super.paint(g);
+        super.paintComponent(g);
         if (snake != null) {
             snake.paint(g, getSquareWidth(), getSquareHeigth());
             
@@ -126,6 +134,9 @@ public class Board extends javax.swing.JPanel {
         food.paint(g, getSquareWidth(), getSquareHeigth());
         
         specialFood.paint(g, getSquareWidth(), getSquareHeigth());
+        
+        
+        Toolkit.getDefaultToolkit().sync(); //Para evitar que vaya a saltos el snake
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,6 +149,10 @@ public class Board extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridLayout());
     }// </editor-fold>//GEN-END:initComponents
+
+    private void initGame() {
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

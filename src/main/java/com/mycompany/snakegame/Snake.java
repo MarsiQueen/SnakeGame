@@ -18,6 +18,8 @@ public class Snake {
     private List<Node> body;
     private Direction direction;
     private int nodesToGrow;
+    private boolean isMoving = true;
+
     
     
     public Snake(){
@@ -29,11 +31,20 @@ public class Snake {
         body.add(new Node(Board.NUM_ROWS/2, Board.NUM_COLS/2 - 3));
         direction = Direction.RIGHT;
         nodesToGrow = 0;
+        this.isMoving = true;
+        
     }
+
+    
     
     public Direction getDirection() {
         return direction;
     }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+    
 
     public void incrementNodesToGrow(int numNodes){
         nodesToGrow += numNodes;
@@ -58,6 +69,53 @@ public class Snake {
             
         }
     }
+
+    void move() {
+        
+        Node head = body.get(0);
+        int newRow = head.getRow();
+        int newCol = head.getCol();
+        switch (direction) {
+            case UP:
+                newRow--;
+                break;
+            case DOWN:
+                newRow++;
+                break;
+            case RIGHT:
+                newCol++;
+                break;
+            case LEFT:
+                newCol--;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        
+        
+        Node newHead = new Node(newRow, newCol);
+       
+        body.add(0, newHead);
+        
+        if (nodesToGrow == 0) {
+            body.remove(body.size() - 1);
+        } else {
+            nodesToGrow--;
+        }
+   
+    }
+    
+    
+    public void stopMoving(){
+        this.isMoving = false;
+    }
+    
+    public void startMoving(){
+        this.isMoving = true;
+    }
+    
+   
+    
     
     
     
