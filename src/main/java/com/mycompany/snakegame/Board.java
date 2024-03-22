@@ -27,6 +27,7 @@ public class Board extends javax.swing.JPanel {
     private Food food;
     private SpecialFood specialFood;
     private Timer time;
+    private Node node;
     
     
     
@@ -78,9 +79,28 @@ public class Board extends javax.swing.JPanel {
         }
     }
     
-    /*public boolean canMove(Node node, int row, int col) {
+    public boolean canMove(Snake snake, int row, int col) {
+        Node head = snake.getBody().get(0);
+        int headRow = head.getRow();
+        int headCol = head.getCol();
         
-    }*/
+        if (row < 0 || row >= NUM_ROWS || col < 0 || col >= NUM_COLS)  {
+            System.out.println("X");
+            return false;
+            
+        }
+        
+        /*if (Node node : snake.getBody()) {
+            if (node.getRow() == row && node.getCol() == col) {
+            return false;
+            }
+        }*/
+        
+
+    
+        
+        return true;
+    }
     
     
     public void checkCollision(){

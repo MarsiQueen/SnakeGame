@@ -19,6 +19,7 @@ public class Snake {
     private Direction direction;
     private int nodesToGrow;
     private boolean isMoving = true;
+    private Board board;
 
     
     
@@ -102,6 +103,9 @@ public class Snake {
         } else {
             nodesToGrow--;
         }
+        
+        
+        
    
     }
     
