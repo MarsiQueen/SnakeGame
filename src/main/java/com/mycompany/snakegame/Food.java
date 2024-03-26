@@ -22,7 +22,7 @@ public class Food {
     }
     
 
-    private void generateRandomPosition(int numRows, int numCols) {
+    public void generateRandomPosition(int numRows, int numCols) {
         Random random = new Random();
         row = random.nextInt(numRows);
         col = random.nextInt(numCols);
@@ -34,5 +34,15 @@ public class Food {
         
         
     }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+    
+    
     
 }

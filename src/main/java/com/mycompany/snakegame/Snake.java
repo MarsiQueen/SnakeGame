@@ -118,7 +118,12 @@ public class Snake {
         this.isMoving = true;
     }
     
-   
+   public boolean isAtBoundary(int numRows, int numCols){
+       Node head = body.get(0);
+       int headRow = head.getRow();
+       int headCol = head.getCol();
+       return headRow <= 0 || headRow >= numRows + 1 || headCol <= 0 || headCol >= numCols + 1;
+   }
     
     
     

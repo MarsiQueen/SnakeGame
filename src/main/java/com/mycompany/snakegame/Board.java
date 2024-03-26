@@ -19,6 +19,8 @@ public class Board extends javax.swing.JPanel {
     public static final int NUM_COLS = 30;
     public static final int NUM_ROWS = 40;
     
+    private static final int SPECIAL_FOOD_INTERVAL = 10000;
+    
     private int[][] matrix;
     private int currentRow;
     private int currentCol;
@@ -28,6 +30,7 @@ public class Board extends javax.swing.JPanel {
     private SpecialFood specialFood;
     private Timer time;
     private Node node;
+    private Timer specialFoodTimer;
     
     
     
@@ -79,7 +82,31 @@ public class Board extends javax.swing.JPanel {
         }
     }
     
-    public boolean canMove(Snake snake, int row, int col) {
+    public void moveSnake(){
+        checkFoodCollision();
+        
+        if (snake.isAtBoundary(NUM_ROWS, NUM_COLS)){
+            snake.stopMoving();
+            return;
+        }
+        
+        snake.move();
+        
+    }
+    
+    public void checkFoodCollision(){
+        Node head = snake.getBody().get(0);
+        if (head.getRow() == food.getRow() && head.getCol() == food.getCol()) {
+            food.generateRandomPosition(NUM_ROWS, NUM_COLS);
+            snake.incrementNodesToGrow(1);
+        }
+        if (head.getRow() == specialFood.getRow() && head.getCol() == specialFood.getCol()){
+            specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
+            snake.incrementNodesToGrow(3);
+        }
+    }
+    
+    /*public boolean canMove(Snake snake, int row, int col) {
         Node head = snake.getBody().get(0);
         int headRow = head.getRow();
         int headCol = head.getCol();
@@ -99,17 +126,17 @@ public class Board extends javax.swing.JPanel {
 
     
         
-        return true;
-    }
+        /*return true;
+    }*/
     
     
-    public void checkCollision(){
+    /*public void checkCollision(){
         Node snakeHead = snake.getBody().get(0);
         if (snakeHead.getRow() < 0 || snakeHead.getRow() >= NUM_ROWS ||
                 snakeHead.getCol() < 0 || snakeHead.getCol() >= NUM_COLS){
             snake.stopMoving();
         }
-    }
+    }*/
     
     
 
@@ -123,12 +150,21 @@ public class Board extends javax.swing.JPanel {
         keyAdapter = new MyKeyAdapter();
         setFocusable(true);
         addKeyListener(keyAdapter);
-        time = new Timer(400, e -> {
-           snake.move();
+        time = new Timer(200, e -> {
+           //snake.move();
+           moveSnake();
            repaint();
         });
         time.start();
+        specialFoodTimer = new Timer(SPECIAL_FOOD_INTERVAL, e -> {
+            if (specialFood == null){
+                specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
+                repaint();
+            }
+        });
+        specialFoodTimer.start();
         initGame();
+        
         repaint();
        
     }
