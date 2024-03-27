@@ -15,9 +15,11 @@ import java.util.Random;
 public class SpecialFood {
     private int row;
     private int col;
+    //private boolean present;
     
     SpecialFood(int numRows, int numCols) {
         generateRandomPosition(numRows, numCols);
+        //this.present = true;
     }
     
 
@@ -33,6 +35,14 @@ public class SpecialFood {
         
         
     }
+    
+    /*public boolean isPresent() {
+        return present;
+    }
+
+    public void setPresent(boolean present) {
+        this.present = present;
+    }*/
 
     public int getRow() {
         return row;

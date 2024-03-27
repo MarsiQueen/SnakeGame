@@ -43,7 +43,12 @@ public class Snake {
     }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        if ((this.direction == Direction.UP && direction != Direction.DOWN) ||
+            (this.direction == Direction.DOWN && direction != Direction.UP) ||
+            (this.direction == Direction.RIGHT && direction != Direction.LEFT) ||
+            (this.direction == Direction.LEFT && direction != Direction.RIGHT)) {
+            this.direction = direction;
+        }
     }
     
 
@@ -122,8 +127,20 @@ public class Snake {
        Node head = body.get(0);
        int headRow = head.getRow();
        int headCol = head.getCol();
-       return headRow <= 0 || headRow >= numRows + 1 || headCol <= 0 || headCol >= numCols + 1;
+       return headRow <= 0 || headRow >= numRows + 2 || headCol <= 0 || headCol >= numCols + 1;
    }
+   
+   
+   public boolean isSelfCollision() {
+        Node head = body.get(0);
+        for (int i = 1; i < body.size(); i++) {
+            Node node = body.get(i);
+            if (head.getRow() == node.getRow() && head.getCol() == node.getCol()) {
+                return true; // La cabeza choca con alguna parte del cuerpo
+            }
+        }
+        return false; // No hay colisión consigo misma
+    }
     
     
     

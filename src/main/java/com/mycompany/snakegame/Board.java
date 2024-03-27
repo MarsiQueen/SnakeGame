@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 /**
@@ -18,8 +19,9 @@ public class Board extends javax.swing.JPanel {
 
     public static final int NUM_COLS = 30;
     public static final int NUM_ROWS = 40;
+    //private long specialFoodDisappearedTime;
     
-    private static final int SPECIAL_FOOD_INTERVAL = 10000;
+    private static final int SPECIAL_FOOD_INTERVAL = 5000;
     
     private int[][] matrix;
     private int currentRow;
@@ -31,6 +33,8 @@ public class Board extends javax.swing.JPanel {
     private Timer time;
     private Node node;
     private Timer specialFoodTimer;
+    private TimerInterface timerInterface;
+    private boolean firstTime;
     
     
     
@@ -56,6 +60,12 @@ public class Board extends javax.swing.JPanel {
         }
         
     }
+
+    public void setTimerInterface(TimerInterface timerInterface) {
+        this.timerInterface = timerInterface;
+    }
+
+    
     
     class MyKeyAdapter extends KeyAdapter {
         @Override
@@ -85,7 +95,7 @@ public class Board extends javax.swing.JPanel {
     public void moveSnake(){
         checkFoodCollision();
         
-        if (snake.isAtBoundary(NUM_ROWS, NUM_COLS)){
+        if (snake.isAtBoundary(NUM_ROWS, NUM_COLS) || snake.isSelfCollision()){
             snake.stopMoving();
             return;
         }
@@ -101,12 +111,32 @@ public class Board extends javax.swing.JPanel {
             snake.incrementNodesToGrow(1);
         }
         if (head.getRow() == specialFood.getRow() && head.getCol() == specialFood.getCol()){
+            
+            /*specialFoodTimer = new Timer(SPECIAL_FOOD_INTERVAL, e -> {
+                if (specialFood == null){
+                    specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
+                    repaint();
+                }   
+            });
+            specialFoodTimer.start();
+            specialFoodDisappearedTime = System.currentTimeMillis();*/
             specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
             snake.incrementNodesToGrow(3);
         }
     }
     
-    /*public boolean canMove(Snake snake, int row, int col) {
+    /*private boolean canRespawnSpecialFood() {
+        long currentTime = System.currentTimeMillis();
+        long timeSinceDisappearance = currentTime - specialFoodDisappearedTime;
+        return timeSinceDisappearance >= SPECIAL_FOOD_INTERVAL;
+    }
+    private void handleSpecialFoodRespawnTimer() {
+        if (!specialFood.isPresent() && canRespawnSpecialFood()) {
+            specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
+        }
+    }
+    
+    public boolean canMove(Snake snake, int row, int col) {
         Node head = snake.getBody().get(0);
         int headRow = head.getRow();
         int headCol = head.getCol();
@@ -150,23 +180,41 @@ public class Board extends javax.swing.JPanel {
         keyAdapter = new MyKeyAdapter();
         setFocusable(true);
         addKeyListener(keyAdapter);
-        time = new Timer(200, e -> {
+        time = new Timer(150, e -> {
            //snake.move();
            moveSnake();
+           /*checkFoodCollision();
+           handleSpecialFoodRespawnTimer();*/
            repaint();
         });
         time.start();
+        if (firstTime) {
+            timerInterface.reset();
+            timerInterface.start();
+            firstTime = false;
+        }
+        /*specialFoodDisappearedTime = System.currentTimeMillis();
         specialFoodTimer = new Timer(SPECIAL_FOOD_INTERVAL, e -> {
             if (specialFood == null){
                 specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
                 repaint();
             }
         });
-        specialFoodTimer.start();
+        specialFoodTimer.start();*/
         initGame();
         
         repaint();
        
+    }
+    
+    public void resetGame(){
+        
+        snake = new Snake();
+        food.generateRandomPosition(NUM_ROWS, NUM_COLS);
+        specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
+        
+        repaint();
+        
     }
     
     

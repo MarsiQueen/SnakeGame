@@ -15,9 +15,14 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
-        
-        
+        setLocationRelativeTo(null); //Para centrar la ventana 
+        board1.setTimerInterface(timerText1);
     }
+    
+    public void resetTime(){
+        timerText1.reset();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,36 +33,69 @@ public class Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        board2 = new com.mycompany.snakegame.Board();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButtonExit = new javax.swing.JButton();
+        jButtonReset = new javax.swing.JButton();
+        timerText1 = new com.mycompany.snakegame.TimerText();
+        board1 = new com.mycompany.snakegame.Board();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout board2Layout = new javax.swing.GroupLayout(board2);
-        board2.setLayout(board2Layout);
-        board2Layout.setHorizontalGroup(
-            board2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+        jToolBar1.setRollover(true);
+
+        jButtonExit.setText("Exit");
+        jButtonExit.setFocusable(false);
+        jButtonExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonExit);
+
+        jButtonReset.setText("Reset");
+        jButtonReset.setFocusable(false);
+        jButtonReset.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonReset.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonReset);
+
+        timerText1.setText("timerText1");
+        jToolBar1.add(timerText1);
+
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout board1Layout = new javax.swing.GroupLayout(board1);
+        board1.setLayout(board1Layout);
+        board1Layout.setHorizontalGroup(
+            board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
-        board2Layout.setVerticalGroup(
-            board2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+        board1Layout.setVerticalGroup(
+            board1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
         );
 
-        getContentPane().add(board2, java.awt.BorderLayout.CENTER);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
+        getContentPane().add(board1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonExitActionPerformed
+
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        // TODO add your handling code here:
+        board1.resetGame();
+        resetTime();
+    }//GEN-LAST:event_jButtonResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,9 +133,12 @@ public class Game extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.snakegame.Board board2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private com.mycompany.snakegame.Board board1;
+    private javax.swing.JButton jButtonExit;
+    private javax.swing.JButton jButtonReset;
+    private javax.swing.JToolBar jToolBar1;
+    private com.mycompany.snakegame.TimerText timerText1;
     // End of variables declaration//GEN-END:variables
+
+    
 }
