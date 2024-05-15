@@ -17,10 +17,13 @@ public class Game extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); //Para centrar la ventana 
         board1.setTimerInterface(timerText1);
+        timerText1.start();
+        board1.requestFocusInWindow();
     }
     
     public void resetTime(){
         timerText1.reset();
+        timerText1.start();
     }
     
 
@@ -65,7 +68,7 @@ public class Game extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonReset);
 
-        timerText1.setText("timerText1");
+        timerText1.setText("00:00");
         jToolBar1.add(timerText1);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);

@@ -59,7 +59,7 @@
         </Component>
         <Component class="com.mycompany.snakegame.TimerText" name="timerText1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="timerText1"/>
+            <Property name="text" type="java.lang.String" value="00:00"/>
           </Properties>
         </Component>
       </SubComponents>

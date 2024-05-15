@@ -61,5 +61,23 @@ public class TimerText extends JTextField implements TimerInterface{
         setText((minutes < 10 ? "0" : "") + minutes + ":" + 
                 (seconds < 10 ? "0" : "") + seconds);
     }
+    
+    /**
+     * Obtiene el número de segundos del temporizador.
+     * @return El número de segundos.
+     */
+    public int getSeconds() {
+        return seconds;
+    }
 
+    /**
+     * Obtiene el número de minutos del temporizador.
+     * @return El número de minutos.
+     */
+    public int getMinutes() {
+        return minutes;
+    }
 }
+
+
+
