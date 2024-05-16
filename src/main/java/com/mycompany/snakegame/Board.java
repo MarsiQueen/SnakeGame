@@ -6,6 +6,8 @@ package com.mycompany.snakegame;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
@@ -19,7 +21,7 @@ public class Board extends javax.swing.JPanel {
 
     public static final int NUM_COLS = 30;
     public static final int NUM_ROWS = 40;
-    //private long specialFoodDisappearedTime;
+    
     
     private static final int SPECIAL_FOOD_INTERVAL = 30;
     
@@ -104,11 +106,13 @@ public class Board extends javax.swing.JPanel {
         }
         
         snake.move();
+        repaint();
         
     }
     
     public void checkFoodCollision(){
         if (timerCount == SPECIAL_FOOD_INTERVAL) {
+            specialFood.setPresent(true);
             specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
             timerCount = 0;
         }
@@ -117,35 +121,20 @@ public class Board extends javax.swing.JPanel {
             food.generateRandomPosition(NUM_ROWS, NUM_COLS);
             snake.incrementNodesToGrow(1);
         }
-        if (specialFood != null && head.getRow() == specialFood.getRow() && head.getCol() == specialFood.getCol()){
+        if (specialFood != null && specialFood.isPresent() && head.getRow() == specialFood.getRow() && head.getCol() == specialFood.getCol()){
             
-            specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
-            /*if (specialFoodTimer == null || !specialFoodTimer.isRunning()){
-                specialFoodTimer = new Timer(SPECIAL_FOOD_INTERVAL, e -> {
-                    specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
-                    repaint();
-                });
-                specialFoodTimer.start();
-            }*/
-            
+            specialFood.setPresent(false);
+            timerCount = 0;
             snake.incrementNodesToGrow(3);
-            
+
         }
         
         timerCount++;
+        
     }
     
-    /*private boolean canRespawnSpecialFood() {
-        long currentTime = System.currentTimeMillis();
-        long timeSinceDisappearance = currentTime - specialFoodDisappearedTime;
-        return timeSinceDisappearance >= SPECIAL_FOOD_INTERVAL;
-    }
-    private void handleSpecialFoodRespawnTimer() {
-        if (!specialFood.isPresent() && canRespawnSpecialFood()) {
-            specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
-        }
-    }
-    
+   
+    /*
     public boolean canMove(Snake snake, int row, int col) {
         Node head = snake.getBody().get(0);
         int headRow = head.getRow();
@@ -190,7 +179,7 @@ public class Board extends javax.swing.JPanel {
         keyAdapter = new MyKeyAdapter();
         setFocusable(true);
         addKeyListener(keyAdapter);
-        time = new Timer(200, e -> {
+        time = new Timer(150, e -> {
            //snake.move();
            moveSnake();
            /*checkFoodCollision();
@@ -203,14 +192,7 @@ public class Board extends javax.swing.JPanel {
             timerInterface.start();
             firstTime = false;
         }
-        /*specialFoodDisappearedTime = System.currentTimeMillis();
-        specialFoodTimer = new Timer(SPECIAL_FOOD_INTERVAL, e -> {
-            if (specialFood == null){
-                specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
-                repaint();
-            }
-        });
-        specialFoodTimer.start();*/
+        
         initGame();
         
         repaint();

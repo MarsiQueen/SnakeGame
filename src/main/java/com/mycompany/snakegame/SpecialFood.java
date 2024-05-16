@@ -15,34 +15,38 @@ import java.util.Random;
 public class SpecialFood {
     private int row;
     private int col;
-    //private boolean present;
+    private boolean present;
     
     SpecialFood(int numRows, int numCols) {
         generateRandomPosition(numRows, numCols);
-        //this.present = true;
+        this.present = true;
     }
     
 
     public void generateRandomPosition(int numRows, int numCols) {
-        Random random = new Random();
-        row = random.nextInt(numRows);
-        col = random.nextInt(numCols);
+        if (present) {
+            Random random = new Random();
+            row = random.nextInt(numRows);
+            col = random.nextInt(numCols);
+        }
     }
     
     public void paint(Graphics g, int squareWidth, int squareHeight){
-        Color color = Color.GREEN;
-        Util.drawSquare(g, row, col, color, squareWidth, squareHeight);
+        if (present) {
+            Color color = Color.GREEN;
+            Util.drawSquare(g, row, col, color, squareWidth, squareHeight);
+        }
         
         
     }
     
-    /*public boolean isPresent() {
+    public boolean isPresent() {
         return present;
     }
 
     public void setPresent(boolean present) {
         this.present = present;
-    }*/
+    }
 
     public int getRow() {
         return row;
