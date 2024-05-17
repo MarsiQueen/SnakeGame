@@ -20,7 +20,8 @@ public class Snake {
     private int nodesToGrow;
     private boolean isMoving = true;
     private Board board;
-
+    private Direction currentDirection;
+    private Direction desiredDirection;
     
     
     public Snake(){
@@ -38,6 +39,7 @@ public class Snake {
 
     
     
+    
     public Direction getDirection() {
         return direction;
     }
@@ -48,6 +50,7 @@ public class Snake {
             (this.direction == Direction.RIGHT && direction != Direction.LEFT) ||
             (this.direction == Direction.LEFT && direction != Direction.RIGHT)) {
             this.direction = direction;
+            this.desiredDirection = direction;
         }
     }
     
@@ -109,6 +112,13 @@ public class Snake {
             nodesToGrow--;
         }
         
+        if (desiredDirection != null) {
+
+            currentDirection = desiredDirection;
+
+            desiredDirection = null;
+
+        }
         
         
    

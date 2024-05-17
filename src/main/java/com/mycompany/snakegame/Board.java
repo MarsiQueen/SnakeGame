@@ -179,12 +179,12 @@ public class Board extends javax.swing.JPanel {
         keyAdapter = new MyKeyAdapter();
         setFocusable(true);
         addKeyListener(keyAdapter);
-        time = new Timer(150, e -> {
+        time = new Timer(200, e -> {
            //snake.move();
            moveSnake();
            /*checkFoodCollision();
            handleSpecialFoodRespawnTimer();*/
-           repaint();
+           
         });
         time.start();
         if (firstTime) {
