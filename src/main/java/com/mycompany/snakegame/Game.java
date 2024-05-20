@@ -26,6 +26,9 @@ public class Game extends javax.swing.JFrame {
         timerText1.start();
     }
     
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

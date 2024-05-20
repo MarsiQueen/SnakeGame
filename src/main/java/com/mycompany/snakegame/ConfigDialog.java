@@ -18,6 +18,12 @@ public class ConfigDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    
+    private String getSelectedDifficultyLevel() {
+
+        return (String) jComboBoxLevel.getSelectedItem();
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,18 +34,16 @@ public class ConfigDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelName = new javax.swing.JLabel();
         jLabelLevel = new javax.swing.JLabel();
         jComboBoxLevel = new javax.swing.JComboBox<>();
         jButtonOK = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabelName.setText("Name:");
+        jLabelLevel.setText("Que nivel quieres:");
 
-        jLabelLevel.setText("Level:");
-
-        jComboBoxLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Beginner", "Intermediate", "Expert" }));
         jComboBoxLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxLevelActionPerformed(evt);
@@ -53,6 +57,8 @@ public class ConfigDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("Bienvenid@ al Snake!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,36 +66,30 @@ public class ConfigDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabelName))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jComboBoxLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(143, 143, 143)
-                        .addComponent(jButtonOK)))
-                .addContainerGap(185, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(58, 58, 58)
-                    .addComponent(jLabelLevel)
-                    .addContainerGap(304, Short.MAX_VALUE)))
+                        .addComponent(jButtonOK))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabelLevel)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabelName)
-                .addGap(46, 46, 46)
-                .addComponent(jComboBoxLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addGap(62, 62, 62)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelLevel))
                 .addGap(58, 58, 58)
                 .addComponent(jButtonOK)
                 .addContainerGap(79, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(119, 119, 119)
-                    .addComponent(jLabelLevel)
-                    .addContainerGap(163, Short.MAX_VALUE)))
         );
 
         pack();
@@ -101,6 +101,7 @@ public class ConfigDialog extends javax.swing.JDialog {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
@@ -148,7 +149,7 @@ public class ConfigDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOK;
     private javax.swing.JComboBox<String> jComboBoxLevel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelLevel;
-    private javax.swing.JLabel jLabelName;
     // End of variables declaration//GEN-END:variables
 }

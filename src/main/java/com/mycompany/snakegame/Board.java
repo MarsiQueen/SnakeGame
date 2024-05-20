@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 
@@ -38,6 +39,7 @@ public class Board extends javax.swing.JPanel {
     private TimerInterface timerInterface;
     private boolean firstTime;
     private int timerCount = 0;
+    private Game game;
     
     
     
@@ -50,6 +52,10 @@ public class Board extends javax.swing.JPanel {
     
     private void resumeGame() {
         gamePaused = false;
+    }
+    
+    public void setGame(Game game) {
+        this.game = game;
     }
      
     
@@ -102,6 +108,14 @@ public class Board extends javax.swing.JPanel {
             snake.stopMoving();
             timerCount = 0;
             timerInterface.stop();
+            int option = JOptionPane.showOptionDialog(null, "¡HAS PERDIDO!", "Fin del Juego", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Reiniciar", "Salir"}, "Reiniciar");
+        
+            if (option == 0) {
+                resetGame();
+                game.resetTime();
+            } else {
+                System.exit(0); 
+            }
             return;
         }
         
@@ -173,6 +187,7 @@ public class Board extends javax.swing.JPanel {
      * Creates new form Board
      */
     public Board() {
+        
         snake = new Snake();
         food = new Food((int)(Math.random() * NUM_ROWS), (int)(Math.random() * NUM_COLS));
         specialFood = new SpecialFood((int)(Math.random() * NUM_ROWS), (int)(Math.random() * NUM_COLS));
@@ -187,6 +202,7 @@ public class Board extends javax.swing.JPanel {
            
         });
         time.start();
+      
         if (firstTime) {
             timerInterface.reset();
             timerInterface.start();
@@ -204,6 +220,7 @@ public class Board extends javax.swing.JPanel {
         snake = new Snake();
         food.generateRandomPosition(NUM_ROWS, NUM_COLS);
         specialFood.generateRandomPosition(NUM_ROWS, NUM_COLS);
+        
         
         repaint();
         
