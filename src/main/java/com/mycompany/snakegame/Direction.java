@@ -8,8 +8,9 @@ import java.awt.RenderingHints;
 import java.time.temporal.UnsupportedTemporalTypeException;
 
 /**
- *
- * @author alu10427472
+ * Enumeración para representar las direcciones del juego Snake.
+ * Incluye métodos utilitarios para obtener la dirección opuesta y validar movimientos.
+ * 
  */
 public enum Direction {
     UP, DOWN, RIGHT, LEFT

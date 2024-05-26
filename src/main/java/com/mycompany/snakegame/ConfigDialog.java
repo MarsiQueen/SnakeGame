@@ -5,14 +5,18 @@
 package com.mycompany.snakegame;
 
 /**
- *
- * @author alu10427472
+ * Diálogo de configuración del juego Snake.
+ * Permite seleccionar el nivel de dificultad del juego.
+ * 
  */
 public class ConfigDialog extends javax.swing.JDialog {
 
     
     /**
-     * Creates new form ConfigDialog
+     * Crea una nueva instancia de ConfigDialog.
+     * 
+     * @param parent El Frame padre del diálogo.
+     * @param modal  Si el diálogo debe ser modal.
      */
     public ConfigDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -95,10 +99,18 @@ public class ConfigDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción del comboBox de selección de nivel.
+     * @param evt El evento de acción.
+     */
     private void jComboBoxLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLevelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxLevelActionPerformed
 
+    /**
+     * Acción del botón OK para cerrar el diálogo.
+     * @param evt El evento de acción.
+     */
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         // TODO add your handling code here:
         this.dispose();

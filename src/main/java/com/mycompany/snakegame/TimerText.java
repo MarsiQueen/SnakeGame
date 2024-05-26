@@ -10,8 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
- *
- * @author alu10427472
+ * Un campo de texto que muestra un temporizador en formato MM:SS.
  */
 public class TimerText extends JTextField implements TimerInterface{
     
@@ -58,8 +57,7 @@ public class TimerText extends JTextField implements TimerInterface{
     }
     
     private void displayTime() {
-        setText((minutes < 10 ? "0" : "") + minutes + ":" + 
-                (seconds < 10 ? "0" : "") + seconds);
+        setText(String.format("%02d:%02d", minutes, seconds));
     }
     
     /**

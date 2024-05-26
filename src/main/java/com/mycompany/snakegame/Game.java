@@ -5,13 +5,15 @@
 package com.mycompany.snakegame;
 
 /**
- *
- * @author alu10427472
+ * Ventana principal del juego Snake.
+ * Administra la interfaz gráfica y la interacción con el usuario.
+ * 
  */
 public class Game extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Game
+     /**
+     * Crea una nueva instancia de Game.
+     * Configura la ventana y los componentes iniciales.
      */
     public Game() {
         initComponents();
@@ -21,6 +23,10 @@ public class Game extends javax.swing.JFrame {
         board1.requestFocusInWindow();
     }
     
+    
+    /**
+     * Reinicia el temporizador del juego.
+     */
     public void resetTime(){
         timerText1.reset();
         timerText1.start();
@@ -99,8 +105,8 @@ public class Game extends javax.swing.JFrame {
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         // TODO add your handling code here:
-        board1.resetGame();
-        resetTime();
+       board1.resetGame();
+       resetTime();
     }//GEN-LAST:event_jButtonResetActionPerformed
 
     /**
