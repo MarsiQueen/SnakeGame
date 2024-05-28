@@ -73,7 +73,7 @@ public class Board extends javax.swing.JPanel {
      * Configura los temporizadores del juego.
      */
     private void configureTimers() {
-        gameTimer = new Timer(200, e -> moveSnake());
+        gameTimer = new Timer(123, e -> moveSnake());
         gameTimer.start();
     }
     
@@ -170,27 +170,43 @@ public class Board extends javax.swing.JPanel {
     private void handleGameOver() {
         snake.stopMoving();
         timerCount = 0;
-        timerInterface.stop();
+        if (timerInterface != null) {
+            timerInterface.stop();
+        }
         int option = JOptionPane.showOptionDialog(null, "¡HAS PERDIDO!", "Fin del Juego", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Reiniciar", "Salir"}, "Reiniciar");
 
         if (option == 0) {
             resetGame();
-            game.resetTime();
+            if (game != null) {
+                game.resetTime();
+            }
         } else {
             System.exit(0);
         }
     }
+
     
     
-        /**
+     /**
      * Reinicia el juego reseteando la serpiente y los alimentos.
      */
     void resetGame() {
         snake = new Snake();
         food.generateRandomPosition(NUM_ROWS, NUM_COLS);
-        specialFood.respawn(NUM_ROWS, NUM_COLS);
+        timerCount = 0;
+        if (!specialFood.isPresent()) {
+            specialFood.setPresent(true);
+            specialFood.respawn(NUM_ROWS, NUM_COLS);
+        }
         repaint();
+        if (timerInterface != null) {
+            timerInterface.reset();
+            timerInterface.start();
+        }
     }
+
+
+
 
     
      /**
